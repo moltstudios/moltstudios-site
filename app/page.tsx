@@ -26,7 +26,7 @@ export default function ComingSoon() {
           marginBottom: '20px',
           textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)'
         }}>
-          Molt Studios
+          Molt Studios 🦞
         </h1>
         
         <p style={{
