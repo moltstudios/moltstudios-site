@@ -331,13 +331,6 @@
   }
 }
 
-/* Smooth scrolling - applied via global style or body */
-@media (prefers-reduced-motion: no-preference) {
-  :global(html) {
-    scroll-behavior: smooth;
-  }
-}
-
 /* High contrast for better readability */
 @media (prefers-contrast: high) {
   .glassCard,
