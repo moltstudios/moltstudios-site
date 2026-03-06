@@ -331,9 +331,9 @@
   }
 }
 
-/* Smooth scrolling */
+/* Smooth scrolling - applied via global style or body */
 @media (prefers-reduced-motion: no-preference) {
-  html {
+  :global(html) {
     scroll-behavior: smooth;
   }
 }
