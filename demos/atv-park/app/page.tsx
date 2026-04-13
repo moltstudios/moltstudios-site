@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 
 const timeSlots = [
@@ -38,6 +38,14 @@ export default function Home() {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("5:00 PM - 7:00 PM");
   const [selectedService, setSelectedService] = useState("ATV Rentals");
+  const [availability, setAvailability] = useState<Record<string, number>>({});
+  const [showBookingForm, setShowBookingForm] = useState(false);
+  const [customerName, setCustomerName] = useState("");
+  const [customerEmail, setCustomerEmail] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
+  const [atvsBooked, setAtvsBooked] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookingError, setBookingError] = useState("");
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -49,6 +57,23 @@ export default function Home() {
     const today = new Date().toISOString().split("T")[0];
     setSelectedDate(today);
   }, []);
+
+  const fetchAvailability = useCallback(async (date: string) => {
+    if (!date) return;
+    try {
+      const res = await fetch(`/api/availability?date=${date}`);
+      const data = await res.json();
+      if (data.availability) {
+        setAvailability(data.availability);
+      }
+    } catch {
+      setAvailability({});
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchAvailability(selectedDate);
+  }, [selectedDate, fetchAvailability]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -301,7 +326,7 @@ export default function Home() {
                           : "text-orange-500"
                       }`}
                     >
-                      {selectedTime === slot ? "Selected: 15 ATVs" : "Available: 15 ATVs"}
+                      {selectedTime === slot ? "Selected" : "Available"}: {availability[slot] ?? 15} ATVs
                     </div>
                   </button>
                 ))}
@@ -352,9 +377,122 @@ export default function Home() {
 
             {/* Confirm Booking */}
             <div className="text-center">
-              <button className="px-10 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold rounded-full text-lg hover:shadow-xl hover:shadow-orange-500/30 transition-all">
-                Confirm Booking
-              </button>
+              {!showBookingForm ? (
+                <button
+                  onClick={() => setShowBookingForm(true)}
+                  disabled={!selectedDate || !selectedTime || !selectedService || (availability[selectedTime] ?? 15) <= 0}
+                  className="px-10 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold rounded-full text-lg hover:shadow-xl hover:shadow-orange-500/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Confirm Booking
+                </button>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-gray-50 rounded-2xl p-6 md:p-8 border border-gray-200 text-left max-w-md mx-auto"
+                >
+                  <h4 className="text-xl font-bold text-gray-900 mb-4 text-center">Your Details</h4>
+                  {bookingError && (
+                    <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm text-center">
+                      {bookingError}
+                    </div>
+                  )}
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                      <input
+                        type="text"
+                        value={customerName}
+                        onChange={(e) => setCustomerName(e.target.value)}
+                        placeholder="John Doe"
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                      <input
+                        type="email"
+                        value={customerEmail}
+                        onChange={(e) => setCustomerEmail(e.target.value)}
+                        placeholder="you@example.com"
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Phone (optional)</label>
+                      <input
+                        type="tel"
+                        value={customerPhone}
+                        onChange={(e) => setCustomerPhone(e.target.value)}
+                        placeholder="(555) 000-0000"
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Number of ATVs</label>
+                      <select
+                        value={atvsBooked}
+                        onChange={(e) => setAtvsBooked(Number(e.target.value))}
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all"
+                      >
+                        {Array.from({ length: Math.min(availability[selectedTime] ?? 15, 10) }, (_, i) => i + 1).map((n) => (
+                          <option key={n} value={n}>{n} ATV{n > 1 ? "s" : ""}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="flex gap-3 pt-2">
+                      <button
+                        onClick={() => {
+                          setShowBookingForm(false);
+                          setBookingError("");
+                        }}
+                        className="flex-1 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-100 transition-all"
+                      >
+                        Back
+                      </button>
+                      <button
+                        onClick={async () => {
+                          if (!customerName || !customerEmail) {
+                            setBookingError("Name and email are required.");
+                            return;
+                          }
+                          setIsSubmitting(true);
+                          setBookingError("");
+                          try {
+                            const res = await fetch("/api/checkout", {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({
+                                date: selectedDate,
+                                timeSlot: selectedTime,
+                                service: selectedService,
+                                customerName,
+                                customerEmail,
+                                customerPhone,
+                                atvsBooked,
+                              }),
+                            });
+                            const data = await res.json();
+                            if (data.url) {
+                              window.location.href = data.url;
+                            } else {
+                              setBookingError(data.error || "Failed to create checkout session.");
+                              setIsSubmitting(false);
+                            }
+                          } catch {
+                            setBookingError("Network error. Please try again.");
+                            setIsSubmitting(false);
+                          }
+                        }}
+                        disabled={isSubmitting}
+                        className="flex-1 py-3 bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-orange-500/30 transition-all disabled:opacity-50"
+                      >
+                        {isSubmitting ? "Processing..." : "Pay & Book"}
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
             </div>
           </motion.div>
 
