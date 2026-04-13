@@ -18,8 +18,13 @@ const SERVICE_LABELS: Record<string, string> = {
   'Group Packages': '$149.00/person',
 }
 
+export const runtime = 'nodejs'
+
 export async function POST(request: NextRequest) {
-  const stripeKey = process.env.STRIPE_SECRET_KEY!
+  const stripeKey = process.env.STRIPE_SECRET_KEY
+  if (!stripeKey) {
+    return NextResponse.json({ error: 'Stripe key not configured' }, { status: 500 })
+  }
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://atv-park.vercel.app'
 
   try {
@@ -67,9 +72,11 @@ export async function POST(request: NextRequest) {
     })
 
     if (!sessionRes.ok) {
-      const errData = await sessionRes.json()
-      console.error('Stripe error:', errData)
-      return NextResponse.json({ error: errData.error?.message || 'Stripe request failed' }, { status: 500 })
+      const errText = await sessionRes.text()
+      console.error('Stripe error response:', sessionRes.status, errText)
+      let errData
+      try { errData = JSON.parse(errText) } catch { errData = { error: { message: errText } } }
+      return NextResponse.json({ error: errData.error?.message || 'Stripe request failed', details: errData }, { status: 500 })
     }
 
     const session = await sessionRes.json()
