@@ -15,7 +15,7 @@ export default function PrivacyPage() {
         <p style={{ color: '#888', marginBottom: '48px' }}>Last updated: July 25, 2026</p>
 
         <Section title="1. Introduction">
-          <p>Molt Studios ("we," "us," or "our") is a subsidiary of Reynoso Industries LLC, located at 810 Gibb St, Winston-Salem, NC 27103. We respect your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and disclose your information, particularly in relation to our SMS messaging services.</p>
+          <p>Reynoso Industries LLC ("we," "us," or "our"), doing business as Molt Studios, is located at 810 Gibb St, Winston-Salem, NC 27103. We respect your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and disclose your information, particularly in relation to our SMS messaging services.</p>
           <p>For any privacy questions, contact us at <a href="mailto:support@moltstudios.app" style={{ color: '#667eea' }}>support@moltstudios.app</a> or call <strong>+1 833-366-5801</strong>.</p>
         </Section>
 
@@ -114,8 +114,7 @@ export default function PrivacyPage() {
         <Section title="13. Contact Us">
           <p>If you have questions about this Privacy Policy or our data practices, please contact:</p>
           <p>
-            <strong>Molt Studios</strong><br />
-            A subsidiary of Reynoso Industries LLC<br />
+            <strong>Reynoso Industries LLC</strong> (d/b/a Molt Studios)<br />
             810 Gibb St<br />
             Winston-Salem, NC 27103<br />
             Email: <a href="mailto:support@moltstudios.app" style={{ color: '#667eea' }}>support@moltstudios.app</a><br />

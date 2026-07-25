@@ -49,7 +49,7 @@ export default function OptInForm() {
         </h1>
 
         <p style={{ color: '#888', lineHeight: 1.6, marginBottom: '40px' }}>
-          Stay connected with Molt Studios. Get project updates, support notifications,
+          Stay connected with Reynoso Industries LLC (Molt Studios). Get project updates, support notifications,
           and important service alerts delivered straight to your phone.
         </p>
 
@@ -57,7 +57,7 @@ export default function OptInForm() {
         <div style={{ background: '#14141f', borderRadius: '12px', padding: '24px', marginBottom: '40px', border: '1px solid #1e1e2e' }}>
           <h2 style={{ fontSize: '1rem', fontWeight: 600, color: '#fff', marginBottom: '16px' }}>📋 Program Details</h2>
           <ul style={{ color: '#999', lineHeight: 1.8, paddingLeft: '20px', margin: 0, fontSize: '0.9rem' }}>
-            <li><strong>Sender:</strong> Molt Studios (+1 833-366-5801)</li>
+            <li><strong>Sender:</strong> Reynoso Industries LLC / Molt Studios (+1 833-366-5801)</li>
             <li><strong>Message Frequency:</strong> 1-10 messages per month</li>
             <li><strong>Message Types:</strong> Business communications, customer support, service alerts, AI assistant responses</li>
             <li><strong>Rates:</strong> Standard message and data rates may apply from your mobile carrier</li>
@@ -131,7 +131,7 @@ export default function OptInForm() {
               style={{ marginTop: '3px', width: '18px', height: '18px', accentColor: '#667eea' }}
             />
             <span style={{ fontSize: '0.9rem', color: '#bbb', lineHeight: 1.5 }}>
-              <strong style={{ color: '#fff' }}>I consent to receive SMS messages</strong> from Molt Studios
+              <strong style={{ color: '#fff' }}>I consent to receive SMS messages</strong> from Reynoso Industries LLC (Molt Studios)
               at the phone number provided above. I understand that standard message and data rates may apply,
               that I will receive 1-10 messages per month, and that I can reply <strong>STOP</strong> to unsubscribe
               or <strong>HELP</strong> for assistance at any time. I have read and agree to the{' '}
