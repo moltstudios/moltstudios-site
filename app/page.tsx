@@ -409,6 +409,10 @@ export default function Home() {
             <span>Molt Studios</span>
           </div>
           <p>A subsidiary of Reynoso Industries</p>
+          <div style={{ display: 'flex', gap: '24px', margin: '12px 0' }}>
+            <a href="/privacy" style={{ color: '#888', textDecoration: 'none', fontSize: '0.85rem' }}>Privacy Policy</a>
+            <a href="/sms-opt-in" style={{ color: '#888', textDecoration: 'none', fontSize: '0.85rem' }}>SMS Opt-In</a>
+          </div>
           <p className={styles.footerCopy}>© 2026 Molt Studios. We genuinely love this stuff.</p>
         </div>
       </footer>
