@@ -2,8 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
-import { useReveal, Rv, Jar, Btn, Frame, FrondBackdrop } from "../components/atoms";
+import { useReveal, Rv, Jar, Btn, Frame, FrondBackdrop, Ticker } from "../components/atoms";
 import Lily from "../components/Lily";
+import { CLIENTS } from "../components/routes";
 
 export default function Home() {
   const ref = useReveal();
@@ -52,27 +53,16 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="wrap">
+      <section className="wrap" style={{ paddingBottom: "clamp(28px,4vw,44px)" }}>
         <Rv>
-          <div className="tick">
-            <i>
-              npm <b>lumnix@0.2.1</b>
-            </i>
-            <i>
-              tests <b>698</b>
-            </i>
-            <i>
-              mcp tools <b>19</b>
-            </i>
-            <i>
-              compression <b>67GB → 25.3GB</b>
-            </i>
-            <i>
-              agents <b>9, continuous</b>
-            </i>
-          </div>
+          <div className="legend"><span>Worked with</span></div>
+          <Ticker items={CLIENTS} />
+          <p className="tkr-note">
+            Enterprise delivery at Infosys for Truist and Lumen. Direct engagements with
+            Valera Counseling Services, Safe Haven ABC, and ABA practices.
+          </p>
         </Rv>
-      </div>
+      </section>
 
       <section className="wrap sec">
         <Rv>
@@ -83,32 +73,46 @@ export default function Home() {
             [
               "AI systems",
               "Model compression, distillation, and multi-agent orchestration — built to run in production, not in a notebook.",
+              "9 agents · continuous",
               "Consulting",
               "/consulting",
             ],
             [
               "Software products",
               "Developer tooling shipped as open source and on npm. Lumnix is an MCP server for e-commerce research.",
+              "npm lumnix@0.2.1",
               "Products",
               "/products",
             ],
             [
               "Biotechnology",
               "A four-station plant tissue culture lab. Micropropagation, engineered pigment, and an open image dataset.",
+              "Coker 312 · bpsA / sfp",
               "Bio Lab",
               "/lab",
             ],
-          ].map(([t, d, cta, r], i) => (
+          ].map(([t, d, fact, cta, r], i) => (
             <Rv key={t as string} i={i}>
               <div className="card card-i">
                 <h3 className="h3">{t}</h3>
                 <p className="small dim" style={{ marginTop: 9, flex: 1 }}>
                   {d}
                 </p>
+                <div
+                  className="mono"
+                  style={{
+                    color: "var(--moss)",
+                    marginTop: 14,
+                    paddingTop: 12,
+                    borderTop: "1px solid var(--line-soft)",
+                  }}
+                >
+                  {fact}
+                </div>
                 <Link
                   href={r as string}
                   className="mono inline-cta"
-                  style={{ marginTop: 12, textDecoration: "none" }}
+                  style={{ marginTop: 4, textDecoration: "none" }}
                 >
                   {cta} →
                 </Link>

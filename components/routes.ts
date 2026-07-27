@@ -16,3 +16,8 @@ export const LINKS: [string, string][] = [
   ["Hugging Face", "https://huggingface.co/moltstudios"],
   ["LinkedIn", "https://linkedin.com/in/timothy-reynoso"],
 ];
+
+export const CLIENTS: string[] = [
+  "Infosys", "Truist Bank", "Lumen", "Valera Counseling Services",
+  "Safe Haven ABC", "ABA Practices",
+];

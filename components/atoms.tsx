@@ -110,6 +110,25 @@ export const Btn = ({
   );
 };
 
+export const Ticker = ({ items }: { items: string[] }) => (
+  <div className="tkr">
+    <div className="tkr-track">
+      {items.map((s) => (
+        <span className="tkr-item" key={s}>
+          {s}
+          <i aria-hidden="true" />
+        </span>
+      ))}
+      {items.map((s) => (
+        <span className="tkr-item dup" key={"d" + s} aria-hidden="true">
+          {s}
+          <i />
+        </span>
+      ))}
+    </div>
+  </div>
+);
+
 export const Frame = ({
   note,
   ratio = "16 / 10",

@@ -150,6 +150,33 @@
 :focus-visible{outline:2px solid var(--moss);outline-offset:3px;border-radius:2px}
 .dark :focus-visible{outline-color:#7FC6A2}
 
+/* ---- legend: a label breaking a hairline rule ---- */
+.legend{display:flex;align-items:center;gap:13px;margin-bottom:15px}
+.legend::before{content:"";width:16px;height:1px;background:var(--line);flex:0 0 auto}
+.legend::after{content:"";flex:1;height:1px;background:var(--line)}
+.legend span{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--moss);white-space:nowrap}
+.dark .legend::before,.dark .legend::after{background:rgba(255,255,255,.14)}
+.dark .legend span{color:#7FC6A2}
+
+/* ---- ticker ---- */
+.tkr{position:relative;overflow:hidden;padding:3px 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%)}
+.tkr-track{display:flex;align-items:center;width:max-content;
+  animation:tkr-run 46s linear infinite;will-change:transform}
+.tkr:hover .tkr-track,.tkr:focus-within .tkr-track{animation-play-state:paused}
+@keyframes tkr-run{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+.tkr-item{display:inline-flex;align-items:center;gap:24px;padding-right:24px;white-space:nowrap;
+  font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.tkr-item i{width:5px;height:5px;transform:rotate(45deg);background:var(--moss);opacity:.45;flex:0 0 auto}
+.tkr-note{font-size:13px;line-height:1.65;color:var(--muted);margin-top:14px;max-width:72ch}
+@media(prefers-reduced-motion:reduce){
+  .tkr{-webkit-mask-image:none;mask-image:none}
+  .tkr-track{animation:none;flex-wrap:wrap;width:auto}
+  .tkr-item.dup{display:none}
+}
+
 /* ---- hero backdrop ---- */
 .hero{position:relative;overflow:hidden;isolation:isolate;min-height:min(84vh,780px);
   display:flex;align-items:center}
