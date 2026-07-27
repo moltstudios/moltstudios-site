@@ -1,421 +1,228 @@
-'use client'
+"use client";
 
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
-import styles from './page.module.css'
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-  }),
-}
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: (i: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { delay: i * 0.08, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] as [number, number, number, number] },
-  }),
-}
-
-const projects = [
-  {
-    title: 'STL Floor Plan',
-    desc: 'AI-powered floor plan generation tool',
-    url: 'https://frontend-molt-studios.vercel.app',
-    tag: 'AI Product',
-    color: '#667eea',
-  },
-  {
-    title: 'OpenDrones',
-    desc: 'Drone battery e-commerce platform',
-    url: 'https://opendrones.vercel.app',
-    tag: 'E-Commerce',
-    color: '#43e97b',
-  },
-  {
-    title: 'Miles 2 Miles',
-    desc: 'ATV park booking and management system',
-    url: 'https://miles-2-miles.vercel.app',
-    tag: 'Booking',
-    color: '#f093fb',
-  },
-  {
-    title: 'Mission Control',
-    desc: 'Real-time multi-agent monitoring dashboard',
-    url: 'https://mission-control-api-gamma.vercel.app',
-    tag: 'Dashboard',
-    color: '#4facfe',
-  },
-  {
-    title: 'Research Hub',
-    desc: 'AI-driven research pipeline and knowledge base',
-    url: 'https://molt-research.vercel.app',
-    tag: 'Research',
-    color: '#f59e0b',
-  },
-]
-
-const stats = [
-  { value: '4B+', label: 'Tokens Processed', detail: 'Equivalent to reading every book in the Library of Congress 1,000 times' },
-  { value: '9', label: 'AI Agents', detail: 'Running 24/7 across research, development, and operations' },
-  { value: '24/7', label: 'Always On', detail: 'Agents that never sleep, never miss a lead, never stop learning' },
-  { value: '5+', label: 'Years Experience', detail: 'Deep software engineering background powering every solution' },
-]
+import React from "react";
+import Link from "next/link";
+import { useReveal, Rv, Jar, Btn, Frame, FrondBackdrop } from "../components/atoms";
+import Lily from "../components/Lily";
 
 export default function Home() {
-  const heroRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll()
-  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -100])
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0])
-
+  const ref = useReveal();
   return (
-    <main className={styles.main}>
-      {/* Background */}
-      <div className={styles.bg} />
-      <div className={styles.bgOrb1} />
-      <div className={styles.bgOrb2} />
-      <div className={styles.bgOrb3} />
-
-      {/* Navigation */}
-      <nav className={styles.nav}>
-        <div className={styles.navInner}>
-          <div className={styles.logo}>
-            <span className={styles.logoMark}>M</span>
-            <span className={styles.logoText}>Molt Studios</span>
-          </div>
-          <div className={styles.navLinks}>
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
-            <a href="#contact" className={styles.navCta}>Get in Touch</a>
-          </div>
+    <div ref={ref}>
+      <section className="hero">
+        <FrondBackdrop />
+        <div
+          className="wrap hero-in"
+          style={{
+            paddingTop: "clamp(56px,9vw,116px)",
+            paddingBottom: "clamp(48px,7vw,92px)",
+          }}
+        >
+          <Rv>
+            <Jar a="Reynoso Industries LLC" b="Winston-Salem, NC" />
+          </Rv>
+          <Rv i={1}>
+            <h1 className="h1" style={{ maxWidth: "14ch" }}>
+              We build AI systems and engineered biology.
+            </h1>
+          </Rv>
+          <Rv i={2}>
+            <p className="lede" style={{ marginTop: 24 }}>
+              A working engineering practice and a tissue culture lab, run out of one building.
+              We ship production AI for regulated teams, publish the research, and grow the plants
+              ourselves.
+            </p>
+          </Rv>
+          <Rv i={3}>
+            <div className="row" style={{ marginTop: 30 }}>
+              <Link className="btn btn-fill" href="/consulting">
+                Start a project
+                <span className="arw" aria-hidden="true">
+                  →
+                </span>
+              </Link>
+              <Link className="btn btn-line" href="/lab">
+                See the lab
+                <span className="arw" aria-hidden="true">
+                  →
+                </span>
+              </Link>
+            </div>
+          </Rv>
         </div>
-      </nav>
+      </section>
 
-      {/* Hero */}
-      <motion.section
-        ref={heroRef}
-        className={styles.hero}
-        style={{ y: heroY, opacity: heroOpacity }}
-      >
-        <div className={styles.heroContent}>
-          <motion.div
-            className={styles.heroTag}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-          >
-            A subsidiary of Reynoso Industries
-          </motion.div>
+      <div className="wrap">
+        <Rv>
+          <div className="tick">
+            <i>
+              npm <b>lumnix@0.2.1</b>
+            </i>
+            <i>
+              tests <b>698</b>
+            </i>
+            <i>
+              mcp tools <b>19</b>
+            </i>
+            <i>
+              compression <b>67GB → 25.3GB</b>
+            </i>
+            <i>
+              agents <b>9, continuous</b>
+            </i>
+          </div>
+        </Rv>
+      </div>
 
-          <motion.h1
-            className={styles.heroTitle}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          >
-            We build AI that
-            <br />
-            <span className={styles.gradientText}>actually works.</span>
-          </motion.h1>
-
-          <motion.p
-            className={styles.heroSub}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-          >
-            Multi-agent orchestration. Automated workflows. Custom AI solutions
-            that transform how businesses operate. We don't just talk about AI —
-            we ship it every single day.
-          </motion.p>
-
-          <motion.div
-            className={styles.heroCtas}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-          >
-            <a href="#contact" className={styles.btnPrimary}>
-              Start a Project
-            </a>
-            <a href="#work" className={styles.btnSecondary}>
-              See Our Work →
-            </a>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* Stats Bar */}
-      <section className={styles.statsSection}>
-        <div className={styles.statsGrid}>
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              className={styles.statCard}
-              custom={i}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-50px' }}
-            >
-              <div className={styles.statValue}>{stat.value}</div>
-              <div className={styles.statLabel}>{stat.label}</div>
-            </motion.div>
+      <section className="wrap sec">
+        <Rv>
+          <Jar a="What we do" b="Three lines" />
+        </Rv>
+        <div className="grid g3">
+          {[
+            [
+              "AI systems",
+              "Model compression, distillation, and multi-agent orchestration — built to run in production, not in a notebook.",
+              "Consulting",
+              "/consulting",
+            ],
+            [
+              "Software products",
+              "Developer tooling shipped as open source and on npm. Lumnix is an MCP server for e-commerce research.",
+              "Products",
+              "/products",
+            ],
+            [
+              "Biotechnology",
+              "A four-station plant tissue culture lab. Micropropagation, engineered pigment, and an open image dataset.",
+              "Bio Lab",
+              "/lab",
+            ],
+          ].map(([t, d, cta, r], i) => (
+            <Rv key={t as string} i={i}>
+              <div className="card card-i">
+                <h3 className="h3">{t}</h3>
+                <p className="small dim" style={{ marginTop: 9, flex: 1 }}>
+                  {d}
+                </p>
+                <Link
+                  href={r as string}
+                  className="mono inline-cta"
+                  style={{ marginTop: 12, textDecoration: "none" }}
+                >
+                  {cta} →
+                </Link>
+              </div>
+            </Rv>
           ))}
         </div>
       </section>
 
-      {/* What We Do */}
-      <section className={styles.servicesSection} id="about">
-        <div className={styles.sectionInner}>
-          <motion.div
-            className={styles.sectionTag}
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            What We Do
-          </motion.div>
-          <motion.h2
-            className={styles.sectionTitle}
-            custom={1}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            AI-powered solutions
-            <br />
-            built by people who use them.
-          </motion.h2>
-
-          <div className={styles.servicesGrid}>
+      <section className="dark">
+        <div className="wrap sec">
+          <Rv>
+            <Jar a="Selected work" b="Evidence, not claims" />
+          </Rv>
+          <div className="grid g3">
             {[
-              {
-                icon: '🤖',
-                title: 'Multi-Agent Orchestration',
-                desc: 'Teams of AI agents working together 24/7 — researching, building, deploying. Powered by OpenClaw, our custom orchestration framework.',
-              },
-              {
-                icon: '⚡',
-                title: 'Automated Workflows',
-                desc: 'Lead generation, research pipelines, content creation, customer support — automated end-to-end with intelligent agents.',
-              },
-              {
-                icon: '🛠',
-                title: 'Custom AI Solutions',
-                desc: 'Purpose-built AI tools for your specific business needs. Not chatbots — real systems that do real work autonomously.',
-              },
-              {
-                icon: '📊',
-                title: 'Intelligent Dashboards',
-                desc: 'Real-time monitoring and control for your AI workforce. See what your agents are doing, optimize performance, scale operations.',
-              },
-            ].map((service, i) => (
-              <motion.div
-                key={service.title}
-                className={styles.serviceCard}
-                custom={i}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-30px' }}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              >
-                <div className={styles.serviceIcon}>{service.icon}</div>
-                <h3>{service.title}</h3>
-                <p>{service.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Our Work */}
-      <section className={styles.workSection} id="work">
-        <div className={styles.sectionInner}>
-          <motion.div
-            className={styles.sectionTag}
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            Our Work
-          </motion.div>
-          <motion.h2
-            className={styles.sectionTitle}
-            custom={1}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            Battle-tested on
-            <br />
-            real products.
-          </motion.h2>
-
-          <div className={styles.projectsGrid}>
-            {projects.map((project, i) => (
-              <motion.a
-                key={project.title}
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.projectCard}
-                custom={i}
-                variants={scaleIn}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-30px' }}
-                whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              >
-                <div
-                  className={styles.projectAccent}
-                  style={{ background: `linear-gradient(135deg, ${project.color}40, ${project.color}10)` }}
-                />
-                <div className={styles.projectTag} style={{ color: project.color }}>
-                  {project.tag}
+              [
+                "Project Prometheus",
+                "Model compression research",
+                "Compressed a 35B-parameter mixture-of-experts model to 38% of its size at 99% quality retention, and found that MoE router layers are effectively immune to quantization.",
+                "Prometheus paper cover — 3:2",
+              ],
+              [
+                "Lumnix MCP Server",
+                "Open source, on npm",
+                "Nineteen tools over JSON-RPC 2.0 for product and marketplace research, with 698 tests in the suite. Runs anywhere an MCP client does.",
+                "lumnix.dev screenshot — 3:2",
+              ],
+              [
+                "The tissue culture lab",
+                "Four stations, in operation",
+                "Sterile prep, laminar flow, incubation, and grow-out. Currently running micropropagation lines and building a labeled contamination dataset.",
+                "Flow hood, real photo — 3:2",
+              ],
+            ].map(([t, k, d, f], i) => (
+              <Rv key={t as string} i={i}>
+                <div className="card card-i" style={{ padding: 0, overflow: "hidden" }}>
+                  <Frame note={f as string} ratio="3 / 2" />
+                  <div style={{ padding: 22 }}>
+                    <div className="mono dim" style={{ marginBottom: 7 }}>
+                      {k}
+                    </div>
+                    <h3 className="h3">{t}</h3>
+                    <p className="small dim" style={{ marginTop: 9 }}>
+                      {d}
+                    </p>
+                  </div>
                 </div>
-                <h3>{project.title}</h3>
-                <p>{project.desc}</p>
-                <span className={styles.projectLink} style={{ color: project.color }}>
-                  Visit →
-                </span>
-              </motion.a>
+              </Rv>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Behind the Scenes */}
-      <section className={styles.behindSection}>
-        <div className={styles.sectionInner}>
-          <motion.div
-            className={styles.sectionTag}
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            Behind the Scenes
-          </motion.div>
-          <motion.h2
-            className={styles.sectionTitle}
-            custom={1}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            Our agents never sleep.
-          </motion.h2>
-          <motion.p
-            className={styles.sectionDesc}
-            custom={2}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            9 AI agents running around the clock — researching, building, deploying.
-            Here&apos;s what that actually looks like.
-          </motion.p>
-
-          <div className={styles.screenshotsGrid}>
-            <motion.div
-              className={styles.screenshotCard}
-              custom={0}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <img src="/screenshots/discord-agent-activity.png" alt="AI agents clocking in and out on Discord" className={styles.screenshot} />
-              <div className={styles.screenshotLabel}>Agents clocking in/out via Discord</div>
-            </motion.div>
-
-            <motion.div
-              className={styles.screenshotCard}
-              custom={1}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <img src="/screenshots/discord-jin-research.png" alt="Research completion report" className={styles.screenshot} />
-              <div className={styles.screenshotLabel}>Research completion reports</div>
-            </motion.div>
-
-            <motion.div
-              className={styles.screenshotCard}
-              custom={2}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <img src="/screenshots/mission-control-leads.png" alt="Mission Control lead dashboard" className={styles.screenshot} />
-              <div className={styles.screenshotLabel}>Mission Control dashboard</div>
-            </motion.div>
-          </div>
+      <section className="wrap sec">
+        <div className="grid g2" style={{ alignItems: "center", gap: 40 }}>
+          <Rv>
+            <Jar a="Mission" b="Bio" />
+            <h2 className="h2">
+              Blue cotton is the R&amp;D.
+              <br />
+              The blue spider lily is the mission.
+            </h2>
+            <p className="lede" style={{ marginTop: 18 }}>
+              No blue flower exists in the genus <em>Lycoris</em> — it has no pathway to the
+              pigment. That is the point. We are working the problem from the tractable end, in
+              cotton, and publishing what we learn along the way.
+            </p>
+            <div style={{ marginTop: 24 }}>
+              <Link className="btn btn-line" href="/lab">
+                Read the science
+                <span className="arw" aria-hidden="true">
+                  →
+                </span>
+              </Link>
+            </div>
+          </Rv>
+          <Rv i={1} style={{ display: "flex", justifyContent: "center" }}>
+            <Lily size={220} />
+          </Rv>
         </div>
       </section>
 
-      {/* Contact */}
-      <section className={styles.contactSection} id="contact">
-        <motion.div
-          className={styles.contactCard}
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className={styles.contactAccent} />
-          <h2>Let&apos;s build something
-            <br />
-            <span className={styles.gradientText}>extraordinary.</span>
-          </h2>
-          <p>
-            Whether you need a full AI automation system or a single intelligent workflow,
-            we&apos;d love to hear about your project.
-          </p>
-          <div className={styles.contactCtas}>
-            <a href="mailto:hello@moltstudios.app" className={styles.btnPrimary}>
-              hello@moltstudios.app
-            </a>
-            <a href="https://discord.com/invite/clawd" target="_blank" rel="noopener noreferrer" className={styles.btnSecondary}>
-              Join Our Discord
-            </a>
+      <section className="wrap" style={{ paddingBottom: "clamp(56px,8vw,104px)" }}>
+        <Rv>
+          <div
+            className="card"
+            style={{
+              padding: "clamp(28px,5vw,52px)",
+              textAlign: "center",
+              alignItems: "center",
+            }}
+          >
+            <h2 className="h2">Have something that needs building?</h2>
+            <p className="lede" style={{ marginTop: 12, textAlign: "center" }}>
+              Two fixed-scope offers, both with a stated price and a stated end date.
+            </p>
+            <div className="row" style={{ marginTop: 24, justifyContent: "center" }}>
+              <Link className="btn btn-fill" href="/consulting">
+                See the offers
+                <span className="arw" aria-hidden="true">
+                  →
+                </span>
+              </Link>
+              <Link className="btn btn-line" href="/contact">
+                Get in touch
+                <span className="arw" aria-hidden="true">
+                  →
+                </span>
+              </Link>
+            </div>
           </div>
-        </motion.div>
+        </Rv>
       </section>
-
-      {/* Footer */}
-      <footer className={styles.footer}>
-        <div className={styles.footerInner}>
-          <div className={styles.footerBrand}>
-            <span className={styles.logoMark}>M</span>
-            <span>Molt Studios</span>
-          </div>
-          <p>A subsidiary of Reynoso Industries</p>
-          <div style={{ display: 'flex', gap: '24px', margin: '12px 0' }}>
-            <a href="/privacy" style={{ color: '#888', textDecoration: 'none', fontSize: '0.85rem' }}>Privacy Policy</a>
-            <a href="/sms-opt-in" style={{ color: '#888', textDecoration: 'none', fontSize: '0.85rem' }}>SMS Opt-In</a>
-          </div>
-          <p className={styles.footerCopy}>© 2026 Molt Studios. We genuinely love this stuff.</p>
-        </div>
-      </footer>
-    </main>
-  )
+    </div>
+  );
 }
